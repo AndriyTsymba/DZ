@@ -1,14 +1,25 @@
-class InvalidUrlError(Exception):
-    def __init__(self,url):
-        self.url = url
-def fetch_data_from_url(url):
-        if url != "https://www.youtube.com/watch?v=Gs_uBw0CJNk":
-            raise InvalidUrlError("Invalid URL:" + url)
-        elif "/" not in url:
-            raise InvalidUrlError("Something was typed uncorrectly (")
+
+class UserNotFoundError(Exception):
+    pass
+class User:
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email
+
+class UserDatabase:
+    def __init__(self):
+        self.users = {}
+
+    def add_user(self, user):
+        self.users[user.username] = user
+
+    def get_user(self, username):
+        if username in self.users:
+            return self.users[username]
         else:
-            print("URL was typed correctly")
-try:
-    fetch_data_from_url("https://www.youtube.com/")
-except InvalidUrlError as e:
-    print("Error:" , e)
+            raise UserNotFoundError(f"User '{username}' wasn't found ((")
+database = UserDatabase()
+user1 = User("Igor", "adjgefwtfd@gmail.com")
+user2 = User("Kostiy", "just@gmail.com")
+database.add_user(user1)
+database.add_user(user2)
