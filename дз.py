@@ -23,3 +23,8 @@ user1 = User("Igor", "adjgefwtfd@gmail.com")
 user2 = User("Kostiy", "just@gmail.com")
 database.add_user(user1)
 database.add_user(user2)
+try:
+    user = database.get_user("dimon")
+    print(f"Username: {user.username}, Email: {user.email}")
+except UserNotFoundError as e:
+    print(e)
